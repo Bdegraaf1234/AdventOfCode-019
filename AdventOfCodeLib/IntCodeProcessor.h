@@ -6,11 +6,18 @@
 
 using namespace::std;
 
+#include <string>
 #include <vector>
+#include "Parsing.h"
 
-class ADVENTOFCODELIB_API IntCodeProcessing {
+class ADVENTOFCODELIB_API IntCodeProcessor {
 public:
-	static vector<int> Run(std::vector<int>);
+	IntCodeProcessor(string path);
+	IntCodeProcessor() {};
+	void Run();
+	int ReverseEngineer(int desiredOutcome);
+	void WriteMemory(string path);
 	static void ProcessOpCode1(std::vector<int>& intCode, int& idx);
 	static void ProcessOpCode2(std::vector<int>& intCode, int& idx);
+	vector<int> Memory;
 };

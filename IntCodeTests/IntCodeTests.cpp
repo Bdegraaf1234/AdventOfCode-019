@@ -1,8 +1,7 @@
 #include "pch.h"
 #include "pch.h"
 #include "CppUnitTest.h"
-#include "..\AdventOfCodeLib\Parsing.h"
-#include "..\AdventOfCodeLib\IntCodeProcessing.h"
+#include "..\AdventOfCodeLib\IntCodeProcessor.h"
 #include <string>
 
 #include "CppUnitTest.h"
@@ -18,40 +17,48 @@ namespace IntCodeTests
 		TEST_METHOD(ParseIntCode)
 		{
 			std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day2\\Input\\input.txt";
-			vector<int> intCode = Parsing::ParseIntCodeProgram(inFile);
-			Assert::AreEqual(157, (int)intCode.size());
+			IntCodeProcessor cpu = IntCodeProcessor(inFile);
+			Assert::AreEqual(157, (int)cpu.Memory.size());
 		}
 
 		TEST_METHOD(OpCode1Test)
 		{
 			std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day2\\TestInput\\opcode1.txt";
-			vector<int> intCode = Parsing::ParseIntCodeProgram(inFile);
-			vector<int> res = IntCodeProcessing::Run(intCode);
-			Assert::AreEqual(2, res[0]);
+			IntCodeProcessor cpu = IntCodeProcessor(inFile);
+			cpu.Run();
+			Assert::AreEqual(2, cpu.Memory[0]);
 		}
 
 		TEST_METHOD(OpCode2Test)
 		{
 			std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day2\\TestInput\\opcode2.txt";
-			vector<int> intCode = Parsing::ParseIntCodeProgram(inFile);
-			vector<int> res = IntCodeProcessing::Run(intCode);
-			Assert::AreEqual(6, res[3]);
+			IntCodeProcessor cpu = IntCodeProcessor(inFile);
+			cpu.Run();
+			Assert::AreEqual(6, cpu.Memory[3]);
 		}
 
 		TEST_METHOD(IntCodeTest)
 		{
 			std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day2\\TestInput\\intCode.txt";
-			vector<int> intCode = Parsing::ParseIntCodeProgram(inFile);
-			vector<int> res = IntCodeProcessing::Run(intCode);
-			Assert::AreEqual(30, res[0]);
+			IntCodeProcessor cpu = IntCodeProcessor(inFile);
+			cpu.Run();
+			Assert::AreEqual(30, cpu.Memory[0]);
 		}
 
 		TEST_METHOD(IntCode2Test)
 		{
 			std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day2\\TestInput\\intCode2.txt";
-			vector<int> intCode = Parsing::ParseIntCodeProgram(inFile);
-			vector<int> res = IntCodeProcessing::Run(intCode);
-			Assert::AreEqual(3500, res[0]);
+			IntCodeProcessor cpu = IntCodeProcessor(inFile);
+			cpu.Run();
+			Assert::AreEqual(3500, cpu.Memory[0]);
+		}
+
+		TEST_METHOD(IntCodeRevEngineer)
+		{
+			std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day2\\Input\\input.txt";
+			IntCodeProcessor cpu = IntCodeProcessor(inFile);
+			int res = cpu.ReverseEngineer(19690720);
+			Assert::AreEqual(7603, res);
 		}
 	};
 }

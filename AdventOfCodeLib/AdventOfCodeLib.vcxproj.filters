@@ -30,7 +30,10 @@
     <ClInclude Include="Calculating.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IntCodeProcessing.h">
+    <ClInclude Include="IntCodeProcessor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Instruction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -47,7 +50,10 @@
     <ClCompile Include="Calculating.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="IntCodeProcessing.cpp">
+    <ClCompile Include="IntCodeProcessor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Instruction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
