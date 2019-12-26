@@ -1,28 +1,24 @@
-// AdventOfCodeCLI.cpp : This file contains the 'main' function. Program execution begins and ends there.
+// IntCodeCLI2-1.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
-
-#include <iostream>
-#include "AdventOfCodeCLI.h"
-#include "..\AdventOfCodeLib\Parsing.h"
-#include "..\AdventOfCodeLib\Calculating.h"
 #include <string>
+#include "../../../AdventOfCodeCLI/AdventOfCodeLib/IntCodeProcessor.h"
+#include <iostream>
+#include <fstream>
+#include <iterator>
+#include <vector>
 
-using namespace::std;
-
-int main(int argc, char* argv[])
+void main(int argc, char* argv[])
 {
 	if (argc == 1)
 	{
 		cout << "no arguments provided";
-		return -1;
 	}
 	else
 	{
 		cout << argv[1] << "\n";
-		std::vector<int> weightVect = Parsing::ParseInputDay1(argv[1]);
-		int fuelReq = Calculating::CalculateTotalFuelRequirement(weightVect);
-		cout << fuelReq << "\n";
-		return fuelReq;
+		IntCodeProcessor cpu = IntCodeProcessor(argv[1]);
+		cpu.Run();
+		cpu.WriteMemory("../../Output/output.txt");
 	}
 }
 

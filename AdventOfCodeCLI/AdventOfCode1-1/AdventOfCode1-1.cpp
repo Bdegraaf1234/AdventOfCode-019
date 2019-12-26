@@ -1,11 +1,29 @@
-// ConsoleApplication1.cpp : This file contains the 'main' function. Program execution begins and ends there.
+// AdventOfCodeCLI.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
 #include <iostream>
+#include "AdventOfCode1-1.h"
+#include "../../AdventOfCodeLib/Parsing.h"
+#include "../../AdventOfCodeLib/Calculating.h"
+#include <string>
 
-int main()
+using namespace::std;
+
+int main(int argc, char* argv[])
 {
-    std::cout << "Hello World!\n";
+	if (argc == 1)
+	{
+		cout << "no arguments provided";
+		return -1;
+	}
+	else
+	{
+		cout << argv[1] << "\n";
+		std::vector<int> weightVect = Parsing::ParseInputDay1(argv[1]);
+		int fuelReq = Calculating::CalculateTotalFuelRequirement(weightVect);
+		cout << fuelReq << "\n";
+		return fuelReq;
+	}
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

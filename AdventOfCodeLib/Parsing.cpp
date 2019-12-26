@@ -54,6 +54,31 @@ vector<int> Parsing::ParseInputDay1(string path) {
 	return outVect;
 }
 
+vector<vector<string>> Parsing::ParseInputDay3(string path)
+{
+	vector<vector<string>> outVect;
+
+	string line;
+	ifstream myfile(path);
+
+	if (myfile.is_open())
+	{
+		while (getline(myfile, line))
+		{
+			vector<string> currentVect;
+			strtk::parse(line, ",", currentVect);
+			outVect.push_back(currentVect);
+		}
+		myfile.close();
+	}
+	else
+	{
+		cout << "Unable to open file";
+	}
+
+	return outVect;
+}
+
 vector<int> Parsing::ParseIntCodeProgram(string path) {
 	std::vector<int> intList;
 	string line;

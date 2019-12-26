@@ -20,9 +20,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{04EBB1FC-CC29-44A9-AEF3-D2C6C80DE2BA}</ProjectGuid>
+    <ProjectGuid>{7E16F6D0-0FFB-4E93-9844-009B87E4D3F1}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Day1Tests</RootNamespace>
+    <RootNamespace>Day4Tests</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectSubType>NativeUnitTestProject</ProjectSubType>
   </PropertyGroup>
@@ -160,7 +160,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Day1Tests.cpp" />
+    <ClCompile Include="Day4Tests.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

@@ -1,10 +1,10 @@
 #include "pch.h"
 #include "pch.h"
 #include "CppUnitTest.h"
-#include "..\AdventOfCodeLib\IntCodeProcessor.h"
 #include <string>
 
 #include "CppUnitTest.h"
+#include "../../AdventOfCodeLib/IntCodeProcessor.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 

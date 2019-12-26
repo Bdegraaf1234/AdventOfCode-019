@@ -1,7 +1,7 @@
 // IntCodeCLI2-1.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 #include <string>
-#include "../AdventOfCodeLib/IntCodeProcessor.h"
+#include "../../AdventOfCodeLib/IntCodeProcessor.h"
 #include <iostream>
 #include <fstream>
 #include <iterator>

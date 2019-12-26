@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "CppUnitTest.h"
-#include "..\AdventOfCodeLib\Parsing.h"
-#include "..\AdventOfCodeLib\Calculating.h"
 #include <string>
+#include "../../AdventOfCodeLib/Parsing.h"
+#include "../../AdventOfCodeLib/Calculating.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -19,7 +19,7 @@ namespace Day1Tests
 			Assert::AreEqual(100, numLines);
 		}
 
-		TEST_METHOD(ParseInput)
+		TEST_METHOD(ParseInputDay1)
 		{
 			std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day1\\Input\\input.txt";
 			vector<int> outVect = Parsing::ParseInputDay1(inFile);
