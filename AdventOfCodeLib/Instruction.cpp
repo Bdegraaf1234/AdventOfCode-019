@@ -6,19 +6,21 @@
 
 Instruction::Instruction(int opcode, int pointer, int input)
 {
+	// save the pointer
 	Pointer = pointer;
-	int size = CountNumbers(opcode);
+
 	Identifier = opcode % 10;
 	Input = input;
 
+	// check if the opcode is 0X or just a single number (X)
 	int minOpCode = opcode / 10;
 	if (opcode % 100 < 10)
 	{
 		minOpCode /= 10;
 	}
 
-	int numParameters = 0;
-	if (Identifier == 1 || Identifier == 2)
+	int numParameters;
+	if (Identifier == 1 || Identifier == 2 || Identifier == 7 || Identifier == 8)
 	{
 		numParameters = 3;
 	}
@@ -26,15 +28,29 @@ Instruction::Instruction(int opcode, int pointer, int input)
 	{
 		numParameters = 1;
 	}
+	else if (Identifier == 5 || Identifier == 6)
+	{
+		numParameters = 2;
+	}
+	else
+	{
+		throw new exception("unrecognized opcode");
+	}
+
+	//initialize the parameters
 	for (size_t i = 0; i < numParameters; i++)
 	{
 		Parameters.push_back(Parameter());
 	}
+
 	int numPositionParam = CountNumbers(minOpCode);
+
+	//Set the mode for the leading zeroes
 	for (int i = numParameters - 1; i >= numPositionParam; i--)
 	{
 		Parameters[i].Mode = 0;
 	}
+	//parse the mode for the given parametermodes
 	for (int i = 0; i < numPositionParam; i++)
 	{
 		Parameters[i].Mode = minOpCode % 10;
@@ -67,12 +83,54 @@ int Instruction::Execute(vector<int>& memory, int& pointer)
 	{
 		ofstream myfile;
 		myfile.open("C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day5\\Output\\output.txt");
-		result = memory[Parameters[0].Value];
+		result = Parameters[0].ResolvedValue;
 		myfile << result;
 		myfile.close();
 		std::cout << result;
 		pointer += Parameters.size() + 1;
 		return result;
+	}
+	if (Identifier == 5)
+	{
+		if (Parameters[0].ResolvedValue != 0)
+		{
+			pointer = Parameters[1].ResolvedValue;
+			return result;
+		}
+	}
+	if (Identifier == 6)
+	{
+		if (Parameters[0].ResolvedValue == 0)
+		{
+			pointer = Parameters[1].ResolvedValue;
+			return result;
+		}
+	}
+	if (Identifier == 7)
+	{
+		int res;
+		if (Parameters[0].ResolvedValue < Parameters[1].ResolvedValue)
+		{
+			res = 1;
+		}
+		else
+		{
+			res = 0;
+		}
+		memory[Parameters[2].Value] = res;
+	}
+	if (Identifier == 8)
+	{
+		int res;
+		if (Parameters[0].ResolvedValue == Parameters[1].ResolvedValue)
+		{
+			res = 1;
+		}
+		else
+		{
+			res = 0;
+		}
+		memory[Parameters[2].Value] = res;
 	}
 	pointer += Parameters.size() + 1;
 	return result;

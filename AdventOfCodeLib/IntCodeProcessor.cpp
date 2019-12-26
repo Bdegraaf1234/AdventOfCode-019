@@ -8,7 +8,7 @@ IntCodeProcessor::IntCodeProcessor(string path) {
 	Memory = Parsing::ParseIntCodeProgram(path);
 }
 
-void IntCodeProcessor::Run(int input)
+int IntCodeProcessor::Run(int input)
 {
 	int idx = 0;
 	int prevout = input;
@@ -17,6 +17,7 @@ void IntCodeProcessor::Run(int input)
 		Instruction instruction = Instruction(Memory[idx], idx, prevout);
 		prevout = instruction.Execute(Memory, idx);
 	}
+	return prevout;
 }
 
 int IntCodeProcessor::ReverseEngineer(int desiredOutcome)
