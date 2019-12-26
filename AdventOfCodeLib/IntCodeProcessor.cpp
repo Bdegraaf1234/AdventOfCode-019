@@ -1,4 +1,4 @@
-#include "IntCodeProcessor.h"
+#include "Instruction.h"
 
 #include <string>
 #include <fstream>
@@ -13,14 +13,8 @@ void IntCodeProcessor::Run()
 	int idx = 0;
 	while (Memory[idx] != 99)
 	{
-		if (Memory[idx] == 1)
-		{
-			ProcessOpCode1(Memory, idx);
-		}
-		else
-		{
-			ProcessOpCode2(Memory, idx);
-		};
+		Instruction instruction = Instruction(Memory[idx], idx);
+		int prevout = instruction.Execute(Memory, idx);
 	}
 }
 
@@ -78,4 +72,21 @@ void IntCodeProcessor::ProcessOpCode2(std::vector<int>& intCode, int& idx)
 
 	intCode[idxRes] = intCode[idxA] * intCode[idxB];
 	idx += 4;
+}
+
+void IntCodeProcessor::ProcessOpCode3(std::vector<int>& intCode, int& idx, int& input)
+{
+	int idxRes = intCode[idx + 1];
+
+	intCode[idxRes] = input;
+	idx += 2;
+}
+
+
+int IntCodeProcessor::ProcessOpCode4(std::vector<int>& intCode, int& idx)
+{
+	int idxRes = intCode[idx + 1];
+
+	idx += 2;
+	return intCode[idxRes];
 }

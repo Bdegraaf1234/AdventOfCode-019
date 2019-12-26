@@ -19,5 +19,7 @@ public:
 	void WriteMemory(string path);
 	static void ProcessOpCode1(std::vector<int>& intCode, int& idx);
 	static void ProcessOpCode2(std::vector<int>& intCode, int& idx);
+	void ProcessOpCode3(std::vector<int>& intCode, int& idx, int& input);
+	int ProcessOpCode4(std::vector<int>& intCode, int& idx);
 	vector<int> Memory;
 };

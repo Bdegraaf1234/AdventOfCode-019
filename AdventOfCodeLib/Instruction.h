@@ -1,20 +1,23 @@
-#include "IntCodeProcessor.h"
-class Instruction {
-public:
-	Instruction(IntCodeProcessor& cpu, int pointer) {
-		Cpu = cpu;
-		Pointer = pointer;
-		Identifier = Cpu.Memory[Pointer];
+#ifdef ADVENTOFCODELIB_EXPORTS
+#define ADVENTOFCODELIB_API __declspec(dllexport)
+#else
+#define ADVENTOFCODELIB_API __declspec(dllimport)
+#endif
 
-		if (Identifier == 1 || Identifier == 2)
-		{
-			NumParameters = 4;
-		}
-	}
-	Instruction();
-	IntCodeProcessor Cpu;
+#include "Parameter.h"
+#include "IntCodeProcessor.h"
+#include <vector>
+
+using namespace::std;
+
+class ADVENTOFCODELIB_API Instruction {
+public:
+	Instruction(int opcode, int pointer);
 	int Pointer;
-	int NumParameters;
+	vector<Parameter> Parameters;
 	int Identifier;
-	void Execute();
+	int Input;
+	int Output;
+	int Execute(vector<int>& memory, int& pointer);
+	int CountNumbers(int);
 };

@@ -4,7 +4,7 @@
 #include <string>
 
 #include "CppUnitTest.h"
-#include "../../AdventOfCodeLib/IntCodeProcessor.h"
+#include "../../AdventOfCodeLib/Instruction.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -59,6 +59,38 @@ namespace IntCodeTests
 			IntCodeProcessor cpu = IntCodeProcessor(inFile);
 			int res = cpu.ReverseEngineer(19690720);
 			Assert::AreEqual(7603, res);
+		}
+
+		TEST_METHOD(ParseInstruction1)
+		{
+			Instruction instruction = Instruction(1002, 1);
+			Assert::AreEqual((int)instruction.Parameters.size(), 3);
+			Assert::AreEqual((int)instruction.Parameters[0].Mode, 0);
+			Assert::AreEqual((int)instruction.Parameters[1].Mode, 1);
+			Assert::AreEqual((int)instruction.Parameters[2].Mode, 0);
+		}
+
+		TEST_METHOD(ParseInstruction2)
+		{
+			Instruction	instruction = Instruction(11001, 1);
+			Assert::AreEqual((int)instruction.Parameters.size(), 3);
+			Assert::AreEqual((int)instruction.Parameters[0].Mode, 0);
+			Assert::AreEqual((int)instruction.Parameters[1].Mode, 1);
+			Assert::AreEqual((int)instruction.Parameters[2].Mode, 1);
+		}
+
+		TEST_METHOD(ParseInstruction3)
+		{
+			Instruction instruction = Instruction(3, 1);
+			Assert::AreEqual((int)instruction.Parameters.size(), 1);
+			Assert::AreEqual((int)instruction.Parameters[0].Mode, 0);
+		}
+
+		TEST_METHOD(ParseInstruction4)
+		{
+			Instruction instruction = Instruction(14, 1);
+			Assert::AreEqual((int)instruction.Parameters.size(), 1);
+			Assert::AreEqual((int)instruction.Parameters[0].Mode, 1);
 		}
 	};
 }

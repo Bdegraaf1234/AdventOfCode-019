@@ -170,6 +170,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="Instruction.h" />
     <ClInclude Include="IntCodeProcessor.h" />
+    <ClInclude Include="Parameter.h" />
     <ClInclude Include="Parsing.h" />
     <ClInclude Include="PasswordDay4.h" />
     <ClInclude Include="Wire.h" />
@@ -181,6 +182,7 @@
     <ClCompile Include="ElectricalGrid.cpp" />
     <ClCompile Include="Instruction.cpp" />
     <ClCompile Include="IntCodeProcessor.cpp" />
+    <ClCompile Include="Parameter.cpp" />
     <ClCompile Include="Parsing.cpp" />
     <ClCompile Include="PasswordDay4.cpp" />
     <ClCompile Include="Wire.cpp" />

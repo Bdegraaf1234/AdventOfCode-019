@@ -34,7 +34,7 @@ namespace Day4Tests
 		TEST_METHOD(GetNumPasswords)
 		{
 			int numCorrect = PasswordDay4::GetNumPossibilities(264793, 803935);
-			Assert::AreEqual(1, numCorrect);
+			Assert::AreEqual(628, numCorrect);
 		}
 	};
 }
