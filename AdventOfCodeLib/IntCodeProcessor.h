@@ -13,8 +13,8 @@ using namespace::std;
 class ADVENTOFCODELIB_API IntCodeProcessor {
 public:
 	IntCodeProcessor(string path);
+	void Run(int input);
 	IntCodeProcessor() {};
-	void Run();
 	int ReverseEngineer(int desiredOutcome);
 	void WriteMemory(string path);
 	static void ProcessOpCode1(std::vector<int>& intCode, int& idx);

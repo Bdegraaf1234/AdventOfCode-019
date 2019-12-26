@@ -8,13 +8,14 @@ IntCodeProcessor::IntCodeProcessor(string path) {
 	Memory = Parsing::ParseIntCodeProgram(path);
 }
 
-void IntCodeProcessor::Run()
+void IntCodeProcessor::Run(int input)
 {
 	int idx = 0;
+	int prevout = input;
 	while (Memory[idx] != 99)
 	{
-		Instruction instruction = Instruction(Memory[idx], idx);
-		int prevout = instruction.Execute(Memory, idx);
+		Instruction instruction = Instruction(Memory[idx], idx, prevout);
+		prevout = instruction.Execute(Memory, idx);
 	}
 }
 
@@ -29,7 +30,7 @@ int IntCodeProcessor::ReverseEngineer(int desiredOutcome)
 			Memory = startMem;
 			Memory[1] = i;
 			Memory[2] = j;
-			Run();
+			Run(-1);
 			if (Memory[0] == desiredOutcome)
 			{
 				break;

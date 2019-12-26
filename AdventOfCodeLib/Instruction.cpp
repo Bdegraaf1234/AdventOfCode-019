@@ -1,11 +1,15 @@
 #include "Instruction.h"
 #include <iostream>
+#include <fstream>
 
-Instruction::Instruction(int opcode, int pointer)
+
+
+Instruction::Instruction(int opcode, int pointer, int input)
 {
 	Pointer = pointer;
 	int size = CountNumbers(opcode);
 	Identifier = opcode % 10;
+	Input = input;
 
 	int minOpCode = opcode / 10;
 	if (opcode % 100 < 10)
@@ -59,10 +63,16 @@ int Instruction::Execute(vector<int>& memory, int& pointer)
 	{
 		memory[Parameters[0].Value] = Input;
 	}
-	if (Identifier == 3)
+	if (Identifier == 4)
 	{
-		result = memory[Parameters[0].ResolvedValue];
+		ofstream myfile;
+		myfile.open("C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day5\\Output\\output.txt");
+		result = memory[Parameters[0].Value];
+		myfile << result;
+		myfile.close();
 		std::cout << result;
+		pointer += Parameters.size() + 1;
+		return result;
 	}
 	pointer += Parameters.size() + 1;
 	return result;

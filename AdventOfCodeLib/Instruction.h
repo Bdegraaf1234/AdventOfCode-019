@@ -12,7 +12,7 @@ using namespace::std;
 
 class ADVENTOFCODELIB_API Instruction {
 public:
-	Instruction(int opcode, int pointer);
+	Instruction(int opcode, int pointer, int input);
 	int Pointer;
 	vector<Parameter> Parameters;
 	int Identifier;

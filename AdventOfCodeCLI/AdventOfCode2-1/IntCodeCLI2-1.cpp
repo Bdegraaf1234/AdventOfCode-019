@@ -17,7 +17,7 @@ void main(int argc, char* argv[])
 	{
 		cout << argv[1] << "\n";
 		IntCodeProcessor cpu = IntCodeProcessor(argv[1]);
-		cpu.Run();
+		cpu.Run(1);
 		cpu.WriteMemory("../../Output/output.txt");
 	}
 }
