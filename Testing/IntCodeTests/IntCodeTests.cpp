@@ -174,7 +174,6 @@ namespace IntCodeTests
 		{
 			std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day2\\TestInput\\integration.txt";
 			IntCodeProcessor cpu = IntCodeProcessor(inFile);
-			//Assert::AreEqual(1000, cpu.Run(8));
 			int ans = cpu.Run(7);
 		}
 	};

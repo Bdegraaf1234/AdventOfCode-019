@@ -26,6 +26,13 @@ namespace Day1Tests
 			Assert::AreEqual(53854, outVect[99]);
 		}
 
+		TEST_METHOD(ParseInputDay6)
+		{
+			std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day6\\TestInput\\testInput.txt";
+			vector<string> outVect = Parsing::ParseInputDay6(inFile);
+			Assert::AreEqual((string) "B)C", outVect[1]);
+		}
+
 		TEST_METHOD(CalculateModuleFuel)
 		{
 			int req = Calculating::CalculateModuleFuelRequirement(12);

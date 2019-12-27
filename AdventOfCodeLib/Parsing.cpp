@@ -4,7 +4,6 @@
 #include <string>
 #include <fstream>
 #include <iostream>
-#include <vector>
 #include <deque>
 #include <vector>
 using namespace::std;
@@ -99,4 +98,27 @@ vector<int> Parsing::ParseIntCodeProgram(string path) {
 	}
 
 	return intList;
+}
+
+vector<string> Parsing::ParseInputDay6(string path)
+{
+	std::vector<string> orbitList;
+	string line;
+	ifstream myfile(path);
+
+	if (myfile.is_open())
+	{
+		while (getline(myfile, line))
+		{
+			strtk::parse(line, ",", orbitList);
+		}
+		myfile.close();
+	}
+
+	else
+	{
+		cout << "Unable to open file";
+	}
+
+	return orbitList;
 }

@@ -15,4 +15,5 @@ public:
 	static vector<int> ParseInputDay1(string);
 	static vector<vector<string>> ParseInputDay3(string);
 	static vector<int> ParseIntCodeProgram(string path);
+	static vector<string> ParseInputDay6(string path);
 };
