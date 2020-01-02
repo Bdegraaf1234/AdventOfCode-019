@@ -3,21 +3,128 @@
 #include <string>
 #include <fstream>
 #include <iterator>
+#include <iostream>
 
 IntCodeProcessor::IntCodeProcessor(string path) {
 	Memory = Parsing::ParseIntCodeProgram(path);
+	Pointer = 0;
+}
+
+int IntCodeProcessor::RunMultiProcessor(int input, vector<int> inputPhase, vector<IntCodeProcessor> processors)
+{
+	if (processors.size() != inputPhase.size())
+	{
+		std::cout << "no phase input received for all processors";
+	}
+	IntCodeProcessor currentCpu;
+	int round = 0;
+	while (1)
+	{
+		for (size_t i = 0; i < processors.size(); i++)
+		{
+			int currentPhase = inputPhase[i];
+			IntCodeProcessor currentCpu = processors[i];
+			vector<int> inputVect = { currentPhase, input };
+			if (round == 0)
+			{
+				input = processors[i].RunUntilFirstOutput(inputVect);
+			}
+			else
+			{
+				input = processors[i].RunUntilFirstOutput(input);
+				if (input == -1337)
+				{
+					break;
+				}
+			}
+		}
+		round++;				
+		if (input == -1337)
+		{
+			break;
+		}
+	}
+	return processors[4].Output;
 }
 
 int IntCodeProcessor::Run(int input)
 {
-	int idx = 0;
 	int prevout = input;
-	while (Memory[idx] != 99)
+	while (Memory[Pointer] != 99)
 	{
-		Instruction instruction = Instruction(Memory[idx], idx, prevout);
-		prevout = instruction.Execute(Memory, idx);
+		Instruction instruction = Instruction(Memory[Pointer], Pointer, prevout);
+		prevout = instruction.Execute(Memory, Pointer);
 	}
+	Output = prevout;
 	return prevout;
+}
+
+int IntCodeProcessor::Run(vector<int> input)
+{
+	int idx = 0;
+	int prevout = input[0];
+	int prevoutIdx = 0;
+	while (Memory[Pointer] != 99)
+	{
+		Instruction instruction = Instruction(Memory[Pointer], Pointer, prevout);
+		if (instruction.Identifier == 3 && prevoutIdx < input.size())
+		{
+			instruction.Input = input[prevoutIdx];
+			prevoutIdx++;
+		}
+		prevout = instruction.Execute(Memory, Pointer);
+	}
+	Output = prevout;
+	return prevout;
+}
+
+//uses the input in the first found input intruction
+int IntCodeProcessor::RunUntilFirstOutput(int input)
+{
+	int prevout = input;
+	int prevoutIdx = 0;
+	while (Memory[Pointer] != 99)
+	{
+		Instruction instruction = Instruction(Memory[Pointer], Pointer, prevout);		
+		if (instruction.Identifier == 3 && prevoutIdx < 1)
+		{
+			instruction.Input = input;
+			prevoutIdx++;
+		}
+		prevout = instruction.Execute(Memory, Pointer);
+		if (instruction.Identifier == 4)
+		{
+			Output = prevout;
+			return prevout;
+		}
+	}
+	Output = prevout;
+	return -1337;
+}
+
+//uses the input in the first found input intruction
+int IntCodeProcessor::RunUntilFirstOutput(vector<int> input)
+{
+	int prevout = input[0];
+	int prevoutIdx = 0;
+	while (Memory[Pointer] != 99)
+	{
+		Instruction instruction = Instruction(Memory[Pointer], Pointer, prevout);
+		if (instruction.Identifier == 3 && prevoutIdx < input.size())
+		{
+			instruction.Input = input[prevoutIdx];
+			prevoutIdx++;
+		}
+		prevout = instruction.Execute(Memory, Pointer);
+		if (instruction.Identifier == 4)
+		{
+//			Pointer = 0;
+			Output = prevout;
+			return prevout;
+		}
+	}
+	Output = prevout;
+	return -1337;
 }
 
 int IntCodeProcessor::ReverseEngineer(int desiredOutcome)
@@ -54,41 +161,4 @@ void IntCodeProcessor::WriteMemory(string path)
 	std::ofstream output_file(path);
 	std::ostream_iterator<int> output_iterator(output_file, ",");
 	std::copy(Memory.begin(), Memory.end(), output_iterator);
-}
-
-void IntCodeProcessor::ProcessOpCode1(std::vector<int>& intCode, int& idx)
-{
-	int idxA = intCode[idx + 1];
-	int idxB = intCode[idx + 2];
-	int idxRes = intCode[idx + 3];
-
-	intCode[idxRes] = intCode[idxA] + intCode[idxB];
-	idx += 4;
-}
-
-void IntCodeProcessor::ProcessOpCode2(std::vector<int>& intCode, int& idx)
-{
-	int idxA = intCode[idx + 1];
-	int idxB = intCode[idx + 2];
-	int idxRes = intCode[idx + 3];
-
-	intCode[idxRes] = intCode[idxA] * intCode[idxB];
-	idx += 4;
-}
-
-void IntCodeProcessor::ProcessOpCode3(std::vector<int>& intCode, int& idx, int& input)
-{
-	int idxRes = intCode[idx + 1];
-
-	intCode[idxRes] = input;
-	idx += 2;
-}
-
-
-int IntCodeProcessor::ProcessOpCode4(std::vector<int>& intCode, int& idx)
-{
-	int idxRes = intCode[idx + 1];
-
-	idx += 2;
-	return intCode[idxRes];
 }

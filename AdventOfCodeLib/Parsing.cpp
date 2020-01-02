@@ -53,6 +53,46 @@ vector<int> Parsing::ParseInputDay1(string path) {
 	return outVect;
 }
 
+vector<ImageLayer> Parsing::ParseInputDay8(string path, int width, int height) {
+	string inString;
+	vector<int> outVect;
+	vector<ImageLayer> outLayers;
+	string line;
+	ifstream myfile(path);
+
+	if (myfile.is_open())
+	{
+		while (getline(myfile, line))
+		{
+			inString = line;
+		}
+		myfile.close();
+	}
+
+	else
+	{
+		cout << "Unable to open file";
+	}
+
+	for (size_t i = 0; i < inString.size(); i++)
+	{
+		int j = inString[i];
+		outVect.push_back(j - 48);
+	}
+
+	int contentSize = width * height;
+
+	for (size_t i = 0; i < outVect.size(); i += contentSize)
+	{
+		vector<int> currentContent(150);
+		std::copy(outVect.begin() + i, outVect.begin() + i + 150, currentContent.begin());
+		ImageLayer layer = ImageLayer(height, width, currentContent);
+		outLayers.push_back(layer);
+	}
+
+	return outLayers;
+}
+
 vector<vector<string>> Parsing::ParseInputDay3(string path)
 {
 	vector<vector<string>> outVect;

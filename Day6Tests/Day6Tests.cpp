@@ -54,7 +54,7 @@ namespace Day6Tests
 			{
 				orbitCount += testMap.CountOrbits(testMap.ObjectsInOrbit[i]);
 			}
-			Assert::AreEqual(42, orbitCount);
+			Assert::AreEqual(139597, orbitCount);
 		}
 
 		TEST_METHOD(DistancesRealOrbitmap)
@@ -63,7 +63,7 @@ namespace Day6Tests
 			OrbitMap testMap = OrbitMap(inputList);
 			testMap.CalculateDistanceToObjects(*find(testMap.ObjectsInOrbit.begin(), testMap.ObjectsInOrbit.end(), OrbitingObject("SAN")));
 			auto santa = *find(testMap.ObjectsInOrbit.begin(), testMap.ObjectsInOrbit.end(), OrbitingObject("YOU"));
-			Assert::AreEqual(santa.Distance, 1337);
+			Assert::AreEqual(santa.Distance, 287);
 		}
 	};
 }

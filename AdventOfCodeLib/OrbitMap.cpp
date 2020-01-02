@@ -29,7 +29,7 @@ OrbitMap::OrbitMap(vector<string> input)
 
 int OrbitMap::CountOrbits(OrbitingObject start)
 {
-	int numOrbits = 1;
+	int numOrbits = 0;
 	auto currentOrbit = find(ObjectsInOrbit.begin(), ObjectsInOrbit.end(), start.OrbitalCenter);
 	while (currentOrbit != ObjectsInOrbit.end()) {
 		currentOrbit = find(ObjectsInOrbit.begin(), ObjectsInOrbit.end(), OrbitingObject((*currentOrbit).OrbitalCenter));

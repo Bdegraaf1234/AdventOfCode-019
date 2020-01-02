@@ -24,7 +24,7 @@ void main(int argc, char* argv[])
 				cpu.Memory = startMem;
 				cpu.Memory[1] = i;
 				cpu.Memory[2] = j;
-				cpu.Run();
+				cpu.Run(0);
 				if (cpu.Memory[0] == 19690720)
 				{
 					break;

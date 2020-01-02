@@ -5,6 +5,8 @@
 
 #include "CppUnitTest.h"
 #include "../../AdventOfCodeLib/Instruction.h"
+#include <algorithm>
+#include <iostream>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -175,6 +177,143 @@ namespace IntCodeTests
 			std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day2\\TestInput\\integration.txt";
 			IntCodeProcessor cpu = IntCodeProcessor(inFile);
 			int ans = cpu.Run(7);
+		}
+
+		TEST_METHOD(RunIntegrationtestDay7)
+		{
+			std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day7\\TestInput\\Test1.txt";
+			vector<int> input = { 4, 0 };
+			IntCodeProcessor cpu = IntCodeProcessor(inFile);
+			int ans = cpu.Run(input);
+			cpu = IntCodeProcessor(inFile);
+			input = { 3 };
+			input.push_back(ans);
+			ans = cpu.Run(input);
+			cpu = IntCodeProcessor(inFile);
+			input = { 2 };
+			input.push_back(ans);
+			ans = cpu.Run(input);
+			cpu = IntCodeProcessor(inFile);
+			input = { 1 };
+			input.push_back(ans);
+			ans = cpu.Run(input);
+			cpu = IntCodeProcessor(inFile);
+			input = { 0 };
+			input.push_back(ans);
+			ans = cpu.Run(input);
+			Assert::AreEqual(ans, 43210);
+		}
+
+		TEST_METHOD(RunIntegrationtestDay7PartTwo)
+		{
+			int maxans = 0;
+			vector<int> bestVect;
+			//vector<int> PhaseInput = { 9, 8, 7, 6, 5 };
+			vector<int> PhaseInput = { 5, 6, 7, 8, 9 };
+			while (std::next_permutation(PhaseInput.begin(), PhaseInput.end()))
+			{
+				std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day7\\TestInput\\Test3.txt";
+				IntCodeProcessor cpuA = IntCodeProcessor(inFile);
+				IntCodeProcessor cpuB = IntCodeProcessor(inFile);
+				IntCodeProcessor cpuC = IntCodeProcessor(inFile);
+				IntCodeProcessor cpuD = IntCodeProcessor(inFile);
+				IntCodeProcessor cpuE = IntCodeProcessor(inFile);
+				vector<IntCodeProcessor> inVect = { cpuA, cpuB, cpuC, cpuD, cpuE };
+
+				int ans = IntCodeProcessor::RunMultiProcessor(0, PhaseInput, inVect);
+
+				if (ans > maxans)
+				{
+					maxans = ans;
+					bestVect = PhaseInput;
+				}
+			};
+			Assert::AreEqual(maxans, 139629729);
+		}
+
+		TEST_METHOD(RunIntegrationtestDay7PartTwoB)
+		{
+			int maxans = 0;
+			vector<int> bestVect;
+			//vector<int> PhaseInput = { 9, 8, 7, 6, 5 };
+			vector<int> PhaseInput = { 5, 6, 7, 8, 9 };
+			while (std::next_permutation(PhaseInput.begin(), PhaseInput.end()))
+			{
+				std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day7\\TestInput\\Test4.txt";
+				IntCodeProcessor cpuA = IntCodeProcessor(inFile);
+				IntCodeProcessor cpuB = IntCodeProcessor(inFile);
+				IntCodeProcessor cpuC = IntCodeProcessor(inFile);
+				IntCodeProcessor cpuD = IntCodeProcessor(inFile);
+				IntCodeProcessor cpuE = IntCodeProcessor(inFile);
+				vector<IntCodeProcessor> inVect = { cpuA, cpuB, cpuC, cpuD, cpuE };
+
+				int ans = IntCodeProcessor::RunMultiProcessor(0, PhaseInput, inVect);
+
+				if (ans > maxans)
+				{
+					maxans = ans;
+					bestVect = PhaseInput;
+				}
+			};
+			Assert::AreEqual(maxans, 18216);
+		}
+
+		TEST_METHOD(RealAnswerDay7PartTwo)
+		{
+			int maxans = 0;
+			vector<int> bestVect;
+			vector<int> PhaseInput = { 5, 6, 7, 8, 9 };
+			while (std::next_permutation(PhaseInput.begin(), PhaseInput.end()))
+			{
+				std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day7\\Input\\input.txt";
+				IntCodeProcessor cpuA = IntCodeProcessor(inFile);
+				IntCodeProcessor cpuB = IntCodeProcessor(inFile);
+				IntCodeProcessor cpuC = IntCodeProcessor(inFile);
+				IntCodeProcessor cpuD = IntCodeProcessor(inFile);
+				IntCodeProcessor cpuE = IntCodeProcessor(inFile);
+				vector<IntCodeProcessor> inVect = { cpuA, cpuB, cpuC, cpuD, cpuE };
+
+				int ans = IntCodeProcessor::RunMultiProcessor(0, PhaseInput, inVect);
+
+				if (ans > maxans)
+				{
+					maxans = ans;
+					bestVect = PhaseInput;
+				}
+			};
+			Assert::AreEqual(maxans, 18216);
+		}
+
+		TEST_METHOD(Day7PartOne)
+		{
+			int maxans = 0;
+			vector<int> bestVect;
+			vector<int> PhaseInput = { 0, 1, 2, 3, 4 };
+			while (std::next_permutation(PhaseInput.begin(), PhaseInput.end()))
+			{
+				std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day7\\Input\\input.txt";
+				vector<int> input = { PhaseInput[0], 0 };
+				IntCodeProcessor cpu = IntCodeProcessor(inFile);
+				int ans = cpu.Run(input);
+				cpu = IntCodeProcessor(inFile);
+				input = { PhaseInput[1], ans };
+				ans = cpu.Run(input);
+				cpu = IntCodeProcessor(inFile);
+				input = { PhaseInput[2], ans };
+				ans = cpu.Run(input);
+				cpu = IntCodeProcessor(inFile);
+				input = { PhaseInput[3], ans };
+				ans = cpu.Run(input);
+				cpu = IntCodeProcessor(inFile);
+				input = { PhaseInput[4], ans };
+				ans = cpu.Run(input);
+
+				if (ans > maxans)
+				{
+					maxans = ans;
+					bestVect = PhaseInput;
+				}
+			};
 		}
 	};
 }

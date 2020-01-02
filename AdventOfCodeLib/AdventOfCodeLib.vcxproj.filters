@@ -54,6 +54,9 @@
     <ClInclude Include="OrbitingObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ImageLayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AdventOfCodeLib.cpp">
@@ -90,6 +93,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="OrbitingObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageLayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
