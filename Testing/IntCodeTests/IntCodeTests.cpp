@@ -35,7 +35,7 @@ namespace IntCodeTests
 			std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day2\\TestInput\\opcode1.txt";
 			IntCodeProcessor cpu = IntCodeProcessor(inFile);
 			cpu.Run(-1);
-			Assert::AreEqual(2, cpu.Memory[0]);
+			Assert::AreEqual(2ll, cpu.Memory[0]);
 		}
 
 		TEST_METHOD(OpCode2Test)
@@ -43,7 +43,7 @@ namespace IntCodeTests
 			std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day2\\TestInput\\opcode2.txt";
 			IntCodeProcessor cpu = IntCodeProcessor(inFile);
 			cpu.Run(-1);
-			Assert::AreEqual(6, cpu.Memory[3]);
+			Assert::AreEqual(6ll, cpu.Memory[3]);
 		}
 
 		TEST_METHOD(OpCode3and4Test)
@@ -57,56 +57,79 @@ namespace IntCodeTests
 		{
 			std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day2\\TestInput\\opcode56pos.txt";
 			IntCodeProcessor cpu = IntCodeProcessor(inFile);
-			Assert::AreEqual(cpu.Run(1), 1);
+			Assert::AreEqual(cpu.Run(1), 1ll);
 		}
 
 		TEST_METHOD(OpCode56PosTestNeg)
 		{
 			std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day2\\TestInput\\opcode56pos.txt";
 			IntCodeProcessor cpu = IntCodeProcessor(inFile);
-			Assert::AreEqual(cpu.Run(0), 0);
+			Assert::AreEqual(cpu.Run(0), 0ll);
 		}
 
 		TEST_METHOD(OpCode56ImmTestPos)
 		{
 			std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day2\\TestInput\\opcode56imm.txt";
 			IntCodeProcessor cpu = IntCodeProcessor(inFile);
-			Assert::AreEqual(cpu.Run(1), 1);
+			Assert::AreEqual(cpu.Run(1), 1ll);
 		}
 
 		TEST_METHOD(OpCode56ImmTestNeg)
 		{
 			std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day2\\TestInput\\opcode56imm.txt";
 			IntCodeProcessor cpu = IntCodeProcessor(inFile);
-			Assert::AreEqual(cpu.Run(0), 0);
+			Assert::AreEqual(cpu.Run(0), 0ll);
 		}
 
 		TEST_METHOD(OpCode78ImmTestPos)
 		{
 			std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day2\\TestInput\\opcode78imm.txt";
 			IntCodeProcessor cpu = IntCodeProcessor(inFile);
-			Assert::AreEqual(cpu.Run(8), 1);
+			Assert::AreEqual(cpu.Run(8), 1ll);
 		}
 
 		TEST_METHOD(OpCode78ImmTestNeg)
 		{
 			std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day2\\TestInput\\opcode78imm.txt";
 			IntCodeProcessor cpu = IntCodeProcessor(inFile);
-			Assert::AreEqual(cpu.Run(0), 0);
+			Assert::AreEqual(cpu.Run(0), 0ll);
 		}
 
 		TEST_METHOD(OpCode78PosTestPos)
 		{
 			std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day2\\TestInput\\opcode78pos.txt";
 			IntCodeProcessor cpu = IntCodeProcessor(inFile);
-			Assert::AreEqual(cpu.Run(8), 1);
+			Assert::AreEqual(cpu.Run(8), 1ll);
 		}
 
 		TEST_METHOD(OpCode78PosTestNeg)
 		{
 			std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day2\\TestInput\\opcode78pos.txt";
 			IntCodeProcessor cpu = IntCodeProcessor(inFile);
-			Assert::AreEqual(cpu.Run(0), 0);
+			Assert::AreEqual(cpu.Run(0), 0ll);
+		}
+
+		TEST_METHOD(OpCode9Test)
+		{
+			std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day2\\TestInput\\opcode9.txt";
+			IntCodeProcessor cpu = IntCodeProcessor(inFile);
+			cpu.Run(0);
+			//should output a copy of itself
+		}
+
+		TEST_METHOD(LongLongSupportTest)
+		{
+			std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day2\\TestInput\\opcode9A.txt";
+			IntCodeProcessor cpu = IntCodeProcessor(inFile);
+			Assert::AreEqual(1219070632396864ll, cpu.Run(0));
+		}
+
+		TEST_METHOD(LongLongSupportTestB)
+		{
+			std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day2\\TestInput\\opcode9B.txt";
+			IntCodeProcessor cpu = IntCodeProcessor(inFile);
+			long long ans = cpu.Run(0);
+			Assert::AreEqual(ans, 1125899906842624ll);
 		}
 
 		TEST_METHOD(IntCodeTest)
@@ -114,7 +137,7 @@ namespace IntCodeTests
 			std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day2\\TestInput\\intCode.txt";
 			IntCodeProcessor cpu = IntCodeProcessor(inFile);
 			cpu.Run(-1);
-			Assert::AreEqual(30, cpu.Memory[0]);
+			Assert::AreEqual(30ll, cpu.Memory[0]);
 		}
 
 		TEST_METHOD(IntCode2Test)
@@ -122,7 +145,7 @@ namespace IntCodeTests
 			std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day2\\TestInput\\intCode2.txt";
 			IntCodeProcessor cpu = IntCodeProcessor(inFile);
 			cpu.Run(-1);
-			Assert::AreEqual(3500, cpu.Memory[0]);
+			Assert::AreEqual(3500ll, cpu.Memory[0]);
 		}
 
 		TEST_METHOD(IntCodeRevEngineer)
@@ -182,9 +205,9 @@ namespace IntCodeTests
 		TEST_METHOD(RunIntegrationtestDay7)
 		{
 			std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day7\\TestInput\\Test1.txt";
-			vector<int> input = { 4, 0 };
+			vector<long long> input = { 4l, 0l };
 			IntCodeProcessor cpu = IntCodeProcessor(inFile);
-			int ans = cpu.Run(input);
+			long long ans = cpu.Run(input);
 			cpu = IntCodeProcessor(inFile);
 			input = { 3 };
 			input.push_back(ans);
@@ -201,7 +224,7 @@ namespace IntCodeTests
 			input = { 0 };
 			input.push_back(ans);
 			ans = cpu.Run(input);
-			Assert::AreEqual(ans, 43210);
+			Assert::AreEqual(ans, 43210ll);
 		}
 
 		TEST_METHOD(RunIntegrationtestDay7PartTwo)
@@ -292,9 +315,9 @@ namespace IntCodeTests
 			while (std::next_permutation(PhaseInput.begin(), PhaseInput.end()))
 			{
 				std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day7\\Input\\input.txt";
-				vector<int> input = { PhaseInput[0], 0 };
+				vector<long long> input = { PhaseInput[0], 0l };
 				IntCodeProcessor cpu = IntCodeProcessor(inFile);
-				int ans = cpu.Run(input);
+				long long ans = cpu.Run(input);
 				cpu = IntCodeProcessor(inFile);
 				input = { PhaseInput[1], ans };
 				ans = cpu.Run(input);
@@ -314,6 +337,20 @@ namespace IntCodeTests
 					bestVect = PhaseInput;
 				}
 			};
+		}
+
+		TEST_METHOD(Day8Exec)
+		{
+			std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day9\\Input\\input.txt";
+			IntCodeProcessor cpu = IntCodeProcessor(inFile);
+			long long ans = cpu.RunForceInput(1);
+		}
+
+		TEST_METHOD(Day8ExecPart2)
+		{
+			std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day9\\Input\\input.txt";
+			IntCodeProcessor cpu = IntCodeProcessor(inFile);
+			long long ans = cpu.RunForceInput(2);
 		}
 	};
 }

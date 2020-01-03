@@ -4,9 +4,9 @@ Parameter::Parameter()
 {
 }
 
-void Parameter::Resolve(vector<int>& memory)
+void Parameter::Resolve(vector<long long>& memory, int& relativeBase)
 {
-	int outInt = -1;
+	long long outInt = -1;
 	if (Mode == 0)
 	{
 		outInt = memory[Value];
@@ -14,6 +14,12 @@ void Parameter::Resolve(vector<int>& memory)
 	if (Mode == 1)
 	{
 		outInt = Value;
+	}
+	if (Mode == 2)
+	{
+		//TODO write destination shoudbe a separate field
+		outInt = memory[Value + relativeBase];
+		Value = Value + relativeBase;
 	}
 	ResolvedValue = outInt;
 }

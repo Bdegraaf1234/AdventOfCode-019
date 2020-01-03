@@ -12,8 +12,8 @@ using namespace::std;
 class ADVENTOFCODELIB_API Parameter {
 public:
 	Parameter();
+	void Resolve(vector<long long>& memory, int& relativeBase);
 	int Mode;
-	int Value;
-	int ResolvedValue;
-	void Resolve(vector<int>& memory);
+	long long Value;
+	long long ResolvedValue;
 };

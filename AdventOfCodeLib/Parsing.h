@@ -16,6 +16,6 @@ public:
 	static vector<int> ParseInputDay1(string);
 	static vector<ImageLayer> ParseInputDay8(string path, int width, int height);
 	static vector<vector<string>> ParseInputDay3(string);
-	static vector<int> ParseIntCodeProgram(string path);
+	static vector<long long> ParseIntCodeProgram(string path);
 	static vector<string> ParseInputDay6(string path);
 };

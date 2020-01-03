@@ -13,15 +13,18 @@ using namespace::std;
 class ADVENTOFCODELIB_API IntCodeProcessor {
 public:
 	IntCodeProcessor(string path);
-	static int RunMultiProcessor(int input, vector<int> inputPhase, vector<IntCodeProcessor> processors);
-	int Run(vector<int> input);
-	int RunUntilFirstOutput(int input);
-	int RunUntilFirstOutput(vector<int> input);
-	int Run(int input);
+	static long long RunMultiProcessor(long long input, vector<int> inputPhase, vector<IntCodeProcessor> processors);
+	long long Run(vector<long long> input);
+	long long RunUntilFirstOutput(long long input);
+	long long RunUntilFirstOutput(vector<long long> input);
+	long long Run(long long input);
+	long long RunForceInput(long long input);
 	IntCodeProcessor() {};
-	int ReverseEngineer(int desiredOutcome);
+	long long ReverseEngineer(long long desiredOutcome);
 	void WriteMemory(string path);
-	vector<int> Memory;
+	vector<long long> Memory;
 	int Pointer;
-	int Output;
+	long long Output;
+	int RelativeBase;
+	string OutPath;
 };

@@ -4,7 +4,7 @@
 
 
 
-Instruction::Instruction(int opcode, int pointer, int input)
+Instruction::Instruction(int opcode, int pointer, long long input)
 {
 	// save the pointer
 	Pointer = pointer;
@@ -24,7 +24,7 @@ Instruction::Instruction(int opcode, int pointer, int input)
 	{
 		numParameters = 3;
 	}
-	else if (Identifier == 3 || Identifier == 4)
+	else if (Identifier == 3 || Identifier == 4 || Identifier == 9)
 	{
 		numParameters = 1;
 	}
@@ -59,13 +59,13 @@ Instruction::Instruction(int opcode, int pointer, int input)
 }
 
 
-int Instruction::Execute(vector<int>& memory, int& pointer)
+long long Instruction::Execute(vector<long long>& memory, int& pointer, int& relativeBase, string outPath)
 {
-	int result = -1;
+	long long result = -1ll;
 	for (size_t i = 0; i < Parameters.size(); i++)
 	{
 		Parameters[i].Value = memory[pointer + 1 + i];
-		Parameters[i].Resolve(memory);
+		Parameters[i].Resolve(memory, relativeBase);
 	}
 	if (Identifier == 1)
 	{
@@ -82,9 +82,10 @@ int Instruction::Execute(vector<int>& memory, int& pointer)
 	if (Identifier == 4)
 	{
 		ofstream myfile;
-		myfile.open("C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day5\\Output\\output.txt");
+		myfile.open(outPath, std::ios::app);
 		result = Parameters[0].ResolvedValue;
 		myfile << result;
+		myfile << ',';
 		myfile.close();
 		std::cout << result;
 		pointer += Parameters.size() + 1;
@@ -131,6 +132,10 @@ int Instruction::Execute(vector<int>& memory, int& pointer)
 			res = 0;
 		}
 		memory[Parameters[2].Value] = res;
+	}
+	if (Identifier == 9)
+	{
+		relativeBase += Parameters[0].ResolvedValue;
 	}
 	pointer += Parameters.size() + 1;
 	return result;

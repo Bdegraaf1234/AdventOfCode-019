@@ -12,12 +12,12 @@ using namespace::std;
 
 class ADVENTOFCODELIB_API Instruction {
 public:
-	Instruction(int opcode, int pointer, int input);
+	Instruction(int opcode, int pointer, long long input);
 	int Pointer;
 	vector<Parameter> Parameters;
 	int Identifier;
-	int Input;
-	int Output;
-	int Execute(vector<int>& memory, int& pointer);
+	long long Input;
+	long long Output;
+	long long Execute(vector<long long>& memory, int& pointer, int& relativeBase, string outPath);
 	int CountNumbers(int);
 };

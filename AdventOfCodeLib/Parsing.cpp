@@ -118,8 +118,8 @@ vector<vector<string>> Parsing::ParseInputDay3(string path)
 	return outVect;
 }
 
-vector<int> Parsing::ParseIntCodeProgram(string path) {
-	std::vector<int> intList;
+vector<long long> Parsing::ParseIntCodeProgram(string path) {
+	std::vector<long long> intList;
 	string line;
 	ifstream myfile(path);
 
