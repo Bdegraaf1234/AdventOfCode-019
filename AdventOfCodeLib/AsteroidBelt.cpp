@@ -26,8 +26,8 @@ vector<Asteroid> AsteroidBelt::DestroyAll(Asteroid start)
 	int yFocus = startY - 1;
 	for (size_t i = 0; i < AsteroidList.size(); i++)
 	{
-		double attachedSide = startX - AsteroidList[i].X;
-		double oppositeSide = startY - AsteroidList[i].Y;
+		double attachedSide = (double)startX - (double)AsteroidList[i].X;
+		double oppositeSide = (double)startY - (double)AsteroidList[i].Y;
 		double longSide = sqrt(pow(attachedSide, 2) + pow(oppositeSide, 2));
 		AsteroidList[i].Sine = oppositeSide / longSide;
 		AsteroidList[i].Cosine = attachedSide / longSide;
@@ -63,14 +63,23 @@ vector<Asteroid> AsteroidBelt::DestroyAll(Asteroid start)
 				{
 					if (currentAsteroid.Sine >= maxSin2 && currentAsteroid.Sine < maxSin)
 					{
-						maxSin2 = currentAsteroid.Sine;
-						if (targetIdx[0] == -1) {
-							targetIdx[0] = i;
+						//FIXME: sine function is not accurate enough.
+						if (currentAsteroid.Sine == maxSin2)
+						{
+							if (targetIdx[0] == -1) {
+								targetIdx[0] = i;
+							}
+							else
+							{
+								targetIdx.push_back(i);
+							}
 						}
 						else
 						{
-							targetIdx.push_back(i);
+							targetIdx = { (int)i };
 						}
+						maxSin2 = currentAsteroid.Sine;
+
 					}
 				}
 			}
