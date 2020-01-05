@@ -53,6 +53,37 @@ vector<int> Parsing::ParseInputDay1(string path) {
 	return outVect;
 }
 
+map<int, vector<int>> Parsing::ParseInputDay10(string path) {
+	map<int, vector<int>> outVect;
+
+	string line;
+	ifstream myfile(path);
+	if (myfile.is_open())
+	{
+		int y = 0;
+		while (getline(myfile, line))
+		{
+			int x = 0;
+			for (size_t i = 0; i < line.size(); i++)
+			{
+				if (line[i] == '#')
+				{
+					outVect[y].push_back(x);
+				}
+				x++;
+			}
+			y++;
+		}
+		myfile.close();
+	}
+	else
+	{
+		cout << "Unable to open file";
+	}
+
+	return outVect;
+}
+
 vector<ImageLayer> Parsing::ParseInputDay8(string path, int width, int height) {
 	string inString;
 	vector<int> outVect;
