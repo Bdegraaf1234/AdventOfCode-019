@@ -1,4 +1,5 @@
 #include "AsteroidBelt.h"
+#include <algorithm>
 
 Asteroid AsteroidBelt::GetBestPosition()
 {
@@ -29,267 +30,46 @@ vector<Asteroid> AsteroidBelt::DestroyAll(Asteroid start)
 		double attachedSide = (double)startX - (double)AsteroidList[i].X;
 		double oppositeSide = (double)startY - (double)AsteroidList[i].Y;
 		double longSide = sqrt(pow(attachedSide, 2) + pow(oppositeSide, 2));
-		AsteroidList[i].Sine = oppositeSide / longSide;
-		AsteroidList[i].Cosine = attachedSide / longSide;
+		AsteroidList[i].Sine = round(oppositeSide / longSide * 100000) / 100000;
+		AsteroidList[i].Cosine = round(attachedSide / longSide * 100000) / 100000;
+		if (AsteroidList[i].X < startX)
+		{
+			AsteroidList[i].Sine = -AsteroidList[i].Sine;
+		}
 	}
 	AsteroidList.erase(find(AsteroidList.begin(), AsteroidList.end(), start));
-
+	std::sort(AsteroidList.begin(), AsteroidList.end());
 	while (!AsteroidList.empty()) {
-		//delete right above;
-	for (size_t i = 0; i < AsteroidList.size(); i++)
-		{
-			Asteroid currentAsteroid = AsteroidList[i];
-			if (currentAsteroid.X == startX && currentAsteroid.Y < startY)
-			{
-				if (currentAsteroid.IsSeenBy(startX, startY, AsteroidPositions))
-				{
-					destroyed.push_back(currentAsteroid);
-					AsteroidPositions[currentAsteroid.Y].erase(find(AsteroidPositions[currentAsteroid.Y].begin(), AsteroidPositions[currentAsteroid.Y].end(), currentAsteroid.X));
-					AsteroidList.erase(find(AsteroidList.begin(), AsteroidList.end(), currentAsteroid));
-					break;
-				}
-			}
-		}
-
-		double maxSin = 1;
-		//pass quadrant topright
-		while (1) {
-			vector<int> targetIdx = { -1 };
-			double maxSin2 = 0;
-			for (size_t i = 0; i < AsteroidList.size(); i++)
-			{
-				Asteroid currentAsteroid = AsteroidList[i];
-				if (currentAsteroid.X > startX && currentAsteroid.Y < startY)
-				{
-					if (currentAsteroid.Sine >= maxSin2 && currentAsteroid.Sine < maxSin)
-					{
-						//FIXME: sine function is not accurate enough.
-						if (currentAsteroid.Sine == maxSin2)
-						{
-							if (targetIdx[0] == -1) {
-								targetIdx[0] = i;
-							}
-							else
-							{
-								targetIdx.push_back(i);
-							}
-						}
-						else
-						{
-							targetIdx = { (int)i };
-						}
-						maxSin2 = currentAsteroid.Sine;
-
-					}
-				}
-			}
-			if (targetIdx[0] != -1)
-			{
-				while (1) {
-					if (AsteroidList[targetIdx[0]].IsSeenBy(startX, startY, AsteroidPositions))
-					{
-						maxSin = AsteroidList[targetIdx[0]].Sine;
-						destroyed.push_back(AsteroidList[targetIdx[0]]);
-						AsteroidPositions[AsteroidList[targetIdx[0]].Y].erase(find(AsteroidPositions[AsteroidList[targetIdx[0]].Y].begin(), AsteroidPositions[AsteroidList[targetIdx[0]].Y].end(), AsteroidList[targetIdx[0]].X));
-						AsteroidList.erase(find(AsteroidList.begin(), AsteroidList.end(), AsteroidList[targetIdx[0]]));
-						break;
-					}
-					else
-					{
-						targetIdx.erase(targetIdx.begin());
-					}
-				}
-			}
-			else
-			{
-				break;
-			}
-		}
-
-		//delete right beside;
+		vector<Asteroid> destroyedIt;
 		for (size_t i = 0; i < AsteroidList.size(); i++)
 		{
 			Asteroid currentAsteroid = AsteroidList[i];
-			if (currentAsteroid.X > startX && currentAsteroid.Y == startY)
+			if (currentAsteroid.X >= startX)
 			{
 				if (currentAsteroid.IsSeenBy(startX, startY, AsteroidPositions))
 				{
 					destroyed.push_back(currentAsteroid);
-					AsteroidPositions[currentAsteroid.Y].erase(find(AsteroidPositions[currentAsteroid.Y].begin(), AsteroidPositions[currentAsteroid.Y].end(), currentAsteroid.X));
-					AsteroidList.erase(find(AsteroidList.begin(), AsteroidList.end(), currentAsteroid));
-					break;
+					destroyedIt.push_back(currentAsteroid);
 				}
 			}
-		}
-
-		double maxCos = -1;
-		// pass lowerright quadrant;
-		while (1) {
-			vector<int> targetIdx = { -1 };
-			double maxcos2 = 0;
-			for (size_t i = 0; i < AsteroidList.size(); i++)
-			{
-				Asteroid currentAsteroid = AsteroidList[i];
-				if (currentAsteroid.X > startX&& currentAsteroid.Y > startY)
-				{
-					if (currentAsteroid.Cosine <= maxcos2 && currentAsteroid.Cosine > maxCos)
-					{
-						maxcos2 = currentAsteroid.Cosine;
-						if (targetIdx[0] == -1) {
-							targetIdx[0] = i;
-						}
-						else
-						{
-							targetIdx.push_back(i);
-						}
-					}
-				}
-			}
-			if (targetIdx[0] != -1)
-			{
-				while (1) {
-					if (AsteroidList[targetIdx[0]].IsSeenBy(startX, startY, AsteroidPositions))
-					{
-						maxCos = AsteroidList[targetIdx[0]].Cosine;
-						destroyed.push_back(AsteroidList[targetIdx[0]]);
-						AsteroidPositions[AsteroidList[targetIdx[0]].Y].erase(find(AsteroidPositions[AsteroidList[targetIdx[0]].Y].begin(), AsteroidPositions[AsteroidList[targetIdx[0]].Y].end(), AsteroidList[targetIdx[0]].X));
-						AsteroidList.erase(find(AsteroidList.begin(), AsteroidList.end(), AsteroidList[targetIdx[0]]));
-						break;
-					}
-					else
-					{
-						targetIdx.erase(targetIdx.begin());
-					}
-				}
-			}
-			else
-			{
-				break;
-			}
-		}
-
-		//delete right below;
+		}	
 		for (size_t i = 0; i < AsteroidList.size(); i++)
 		{
 			Asteroid currentAsteroid = AsteroidList[i];
-			if (currentAsteroid.X == startX && currentAsteroid.Y > startY)
+			if (currentAsteroid.X < startX)
 			{
 				if (currentAsteroid.IsSeenBy(startX, startY, AsteroidPositions))
 				{
 					destroyed.push_back(currentAsteroid);
-					AsteroidPositions[currentAsteroid.Y].erase(find(AsteroidPositions[currentAsteroid.Y].begin(), AsteroidPositions[currentAsteroid.Y].end(), currentAsteroid.X));
-					AsteroidList.erase(find(AsteroidList.begin(), AsteroidList.end(), currentAsteroid));
-					break;
+					destroyedIt.push_back(currentAsteroid);
 				}
 			}
 		}
-
-		maxSin = -1;
-		// pass lowerleft quadrant;
-		while (1) {
-			vector<int> targetIdx = { -1 };
-			double maxsin2 = 0;
-			for (size_t i = 0; i < AsteroidList.size(); i++)
-			{
-				Asteroid currentAsteroid = AsteroidList[i];
-				if (currentAsteroid.X < startX&& currentAsteroid.Y > startY)
-				{
-					if (currentAsteroid.Sine <= maxsin2 && currentAsteroid.Sine > maxSin)
-					{
-						maxsin2 = currentAsteroid.Sine;
-						if (targetIdx[0] == -1) {
-							targetIdx[0] = i;
-						}
-						else
-						{
-							targetIdx.push_back(i);
-						}
-					}
-				}
-			}
-			if (targetIdx[0] != -1)
-			{
-				while (1) {
-					if (AsteroidList[targetIdx[0]].IsSeenBy(startX, startY, AsteroidPositions))
-					{
-						maxSin = AsteroidList[targetIdx[0]].Sine;
-						destroyed.push_back(AsteroidList[targetIdx[0]]);
-						AsteroidPositions[AsteroidList[targetIdx[0]].Y].erase(find(AsteroidPositions[AsteroidList[targetIdx[0]].Y].begin(), AsteroidPositions[AsteroidList[targetIdx[0]].Y].end(), AsteroidList[targetIdx[0]].X));
-						AsteroidList.erase(find(AsteroidList.begin(), AsteroidList.end(), AsteroidList[targetIdx[0]]));
-						break;
-					}
-					else
-					{
-						targetIdx.erase(targetIdx.begin());
-					}
-				}
-			}
-			else
-			{
-				break;
-			}
-		}
-
-		//delete left beside;
-		for (size_t i = 0; i < AsteroidList.size(); i++)
+		for (size_t i = 0; i < destroyedIt.size(); i++)
 		{
-			Asteroid currentAsteroid = AsteroidList[i];
-			if (currentAsteroid.X < startX && currentAsteroid.Y == startY)
-			{
-				if (currentAsteroid.IsSeenBy(startX, startY, AsteroidPositions))
-				{
-					destroyed.push_back(currentAsteroid);
-					AsteroidPositions[currentAsteroid.Y].erase(find(AsteroidPositions[currentAsteroid.Y].begin(), AsteroidPositions[currentAsteroid.Y].end(), currentAsteroid.X));
-					AsteroidList.erase(find(AsteroidList.begin(), AsteroidList.end(), currentAsteroid));
-					break;
-				}
-			}
-		}
-
-		maxCos = 1;
-		// pass upperleft quadrant;
-		while (1) {
-			vector<int> targetIdx = { -1 };
-			double maxcos2 = 0;
-			for (size_t i = 0; i < AsteroidList.size(); i++)
-			{
-				Asteroid currentAsteroid = AsteroidList[i];
-				if (currentAsteroid.X < startX&& currentAsteroid.Y < startY)
-				{
-					if (currentAsteroid.Cosine >= maxcos2 && currentAsteroid.Cosine < maxCos)
-					{
-						maxcos2 = currentAsteroid.Cosine;
-						if (targetIdx[0] == -1) {
-							targetIdx[0] = i;
-						}
-						else
-						{
-							targetIdx.push_back(i);
-						}
-					}
-				}
-			}
-			if (targetIdx[0] != -1)
-			{
-				while (1) {
-					if (AsteroidList[targetIdx[0]].IsSeenBy(startX, startY, AsteroidPositions))
-					{
-						maxCos = AsteroidList[targetIdx[0]].Cosine;
-						destroyed.push_back(AsteroidList[targetIdx[0]]);
-						AsteroidPositions[AsteroidList[targetIdx[0]].Y].erase(find(AsteroidPositions[AsteroidList[targetIdx[0]].Y].begin(), AsteroidPositions[AsteroidList[targetIdx[0]].Y].end(), AsteroidList[targetIdx[0]].X));
-						AsteroidList.erase(find(AsteroidList.begin(), AsteroidList.end(), AsteroidList[targetIdx[0]]));
-						break;
-					}
-					else
-					{
-						targetIdx.erase(targetIdx.begin());
-					}
-				}
-			}
-			else
-			{
-				break;
-			}
+			Asteroid currentAsteroid = destroyedIt[i];
+			AsteroidList.erase(find(AsteroidList.begin(), AsteroidList.end(), currentAsteroid));
+			AsteroidPositions[currentAsteroid.Y].erase(find(AsteroidPositions[currentAsteroid.Y].begin(), AsteroidPositions[currentAsteroid.Y].end(), currentAsteroid.X));
 		}
 	}
 	return destroyed;

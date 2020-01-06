@@ -27,6 +27,10 @@ public:
 	double Sine;
 	double Cosine;
 	friend bool operator==(const Asteroid& lhs, const Asteroid& rhs);
+	friend bool operator<(const Asteroid& lhs, const Asteroid& rhs)
+	{
+		return lhs.Sine > rhs.Sine;
+	}
 	int getNumVisibleAsteroids(map<int, vector<int>> asteroidBelt);
 	bool IsSeenBy(int x, int y, std::map<int, std::vector<int>>& asteroidBelt);
 };
