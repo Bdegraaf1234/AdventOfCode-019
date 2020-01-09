@@ -1,3 +1,4 @@
+#pragma once
 #ifdef ADVENTOFCODELIB_EXPORTS
 #define ADVENTOFCODELIB_API __declspec(dllexport)
 #else
@@ -10,6 +11,7 @@ using namespace::std;
 #include <vector>
 #include <map>
 #include "ImageLayer.h"
+#include "Moon.h"
 
 class ADVENTOFCODELIB_API Parsing {
 public:
@@ -20,4 +22,5 @@ public:
 	static vector<vector<string>> ParseInputDay3(string);
 	static vector<long long> ParseIntCodeProgram(string path);
 	static vector<string> ParseInputDay6(string path);
+	static vector<Moon> ParseInputDay12(string path);
 };

@@ -1,11 +1,13 @@
 #include "Parsing.h"
 #include "strtk.hpp"
+#include "Moon.h"
 
 #include <string>
 #include <fstream>
 #include <iostream>
 #include <deque>
 #include <vector>
+#include <regex>
 using namespace::std;
 
 int Parsing::GetNumberOfLines(string path) {
@@ -192,4 +194,49 @@ vector<string> Parsing::ParseInputDay6(string path)
 	}
 
 	return orbitList;
+}
+
+vector<Moon> Parsing::ParseInputDay12(string path)
+{
+	vector<Moon> moons = vector<Moon>();
+	vector<string> moonStrings = vector<string>();
+
+	string line;
+	ifstream myfile(path);
+
+	if (myfile.is_open())
+	{
+		while (getline(myfile, line))
+		{
+			Moon thisMoon = Moon();
+			line = std::regex_replace(line, std::regex("<"), "");
+			line = std::regex_replace(line, std::regex(">"), "");
+			strtk::parse(line, ", ", moonStrings);
+			for (size_t i = 0; i < moonStrings.size(); i++)
+			{
+				vector<string> tem = vector<string>();
+				strtk::parse(moonStrings[i], "=", tem);
+				if (tem[0] == "x")
+				{
+					thisMoon.Position[0] = stoi(tem[1]);
+				}
+				else if (tem[0] == "y")
+				{
+					thisMoon.Position[1] = stoi(tem[1]);
+				}
+				else if (tem[0] == "z")
+				{
+					thisMoon.Position[2] = stoi(tem[1]);
+				}
+			}
+			moons.push_back(thisMoon);
+		}
+		myfile.close();
+	}
+
+	else
+	{
+		cout << "Unable to open file";
+	}
+	return moons;
 }

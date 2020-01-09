@@ -1,3 +1,4 @@
+#pragma once
 #ifdef ADVENTOFCODELIB_EXPORTS
 #define ADVENTOFCODELIB_API __declspec(dllexport)
 #else
@@ -15,8 +16,8 @@ public:
 	IntCodeProcessor(string path);
 	static long long RunMultiProcessor(long long input, vector<int> inputPhase, vector<IntCodeProcessor> processors);
 	long long Run(vector<long long> input);
-	long long RunUntilFirstOutput(long long input);
-	long long RunUntilFirstOutput(vector<long long> input);
+	long long RunUntilFirstOutputForceInput(long long input);
+	long long RunUntilFirstOutputForceInput(vector<long long> input);
 	long long Run(long long input);
 	long long RunForceInput(long long input);
 	IntCodeProcessor() {};

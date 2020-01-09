@@ -1,3 +1,4 @@
+#pragma once
 #ifdef ADVENTOFCODELIB_EXPORTS
 #define ADVENTOFCODELIB_API __declspec(dllexport)
 #else

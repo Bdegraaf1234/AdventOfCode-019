@@ -33,11 +33,11 @@ long long IntCodeProcessor::RunMultiProcessor(long long input, vector<int> input
 			vector<long long> inputVect = { currentPhase, input };
 			if (round == 0)
 			{
-				input = processors[i].RunUntilFirstOutput(inputVect);
+				input = processors[i].RunUntilFirstOutputForceInput(inputVect);
 			}
 			else
 			{
-				input = processors[i].RunUntilFirstOutput(input);
+				input = processors[i].RunUntilFirstOutputForceInput(input);
 				if (input == -1337)
 				{
 					break;
@@ -103,7 +103,7 @@ long long IntCodeProcessor::Run(vector<long long> input)
 }
 
 //uses the input in the first found input long longruction
-long long IntCodeProcessor::RunUntilFirstOutput(long long input)
+long long IntCodeProcessor::RunUntilFirstOutputForceInput(long long input)
 {
 	long long prevout = input;
 	long long prevoutIdx = 0;
@@ -127,7 +127,7 @@ long long IntCodeProcessor::RunUntilFirstOutput(long long input)
 }
 
 //uses the input in the first found input long longruction
-long long IntCodeProcessor::RunUntilFirstOutput(vector<long long> input)
+long long IntCodeProcessor::RunUntilFirstOutputForceInput(vector<long long> input)
 {
 	long long prevout = input[0];
 	long long prevoutIdx = 0;

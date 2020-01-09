@@ -5,6 +5,7 @@
 
 #include "CppUnitTest.h"
 #include "../../AdventOfCodeLib/Instruction.h"
+#include "../../AdventOfCodeLib/HullPainter.h"
 #include <algorithm>
 #include <iostream>
 
@@ -351,6 +352,16 @@ namespace IntCodeTests
 			std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day9\\Input\\input.txt";
 			IntCodeProcessor cpu = IntCodeProcessor(inFile);
 			long long ans = cpu.RunForceInput(2);
+		}
+
+		TEST_METHOD(Day11Exec)
+		{
+			std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day11\\Input\\input.txt";
+			IntCodeProcessor cpu = IntCodeProcessor(inFile);
+			HullPainter paintBot = HullPainter();
+
+			int ans = paintBot.Run(cpu, 1);
+			paintBot.WriteOut("C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day11\\Input\\out.txt");
 		}
 	};
 }
