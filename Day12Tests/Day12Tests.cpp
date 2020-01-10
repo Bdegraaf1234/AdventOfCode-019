@@ -65,7 +65,7 @@ namespace Day12Tests
 			Space space = Space();
 			space.Moons = Parsing::ParseInputDay12("C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day12\\Input\\input.txt");
 
-			Assert::AreEqual((long long)space.GetPeriod(), 2772ll);
+			Assert::AreEqual((long long)space.GetPeriod(), 176810283017562ll);
 		}
 	};
 }

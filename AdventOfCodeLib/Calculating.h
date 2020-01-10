@@ -14,5 +14,7 @@ public:
 	static int CalculateTotalFuelRequirement(std::vector<int>);
 	static int CalculateTotalFuelRequirementIncludingFuel(std::vector<int>);
 	static int CalculateModuleFuelRequirementIncludingFuel(int);
+	static long long calculateLeastCommonMultipleOld(vector<long long> input);
 	static long long calculateLeastCommonMultiple(vector<long long>);
+	static long long calculateLeastCommonMultipleNew(vector<long long> input);
 };

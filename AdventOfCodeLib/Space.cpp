@@ -13,7 +13,7 @@ void Space::ApplyGravity(vector<int> axes)
 	}
 }
 
-int Space::GetPeriod() 
+long long Space::GetPeriod() 
 {
 	Time = 0;
 	
@@ -55,7 +55,7 @@ int Space::GetPeriod()
 				zsteps = Time;
 			}
 		}
-		return Calculating::calculateLeastCommonMultiple({xsteps, ysteps, zsteps});
+		return Calculating::calculateLeastCommonMultipleNew({xsteps, ysteps, zsteps});
 }
 
 void Space::AdvanceTime(vector<int> axes)

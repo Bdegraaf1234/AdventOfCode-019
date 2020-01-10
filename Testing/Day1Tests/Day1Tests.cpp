@@ -56,9 +56,21 @@ namespace Day1Tests
 			Assert::AreEqual(363, (int)belt.AsteroidList.size());
 		}
 
+		TEST_METHOD(CalculateLCMNew)
+		{
+			long long res = Calculating::calculateLeastCommonMultipleNew({ 6ll, 28ll, 44ll, 18ll });
+			Assert::AreEqual(2772ll, res);
+		}
+
 		TEST_METHOD(CalculateLCM)
 		{
 			long long res = Calculating::calculateLeastCommonMultiple({ 6ll, 28ll, 44ll, 18ll, 28ll, 44ll, 18ll, 28ll, 44ll, 6ll, 28ll, 44ll });
+			Assert::AreEqual(2772ll, res);
+		}
+
+		TEST_METHOD(CalculateLCMOld)
+		{
+			long long res = Calculating::calculateLeastCommonMultipleOld({ 6ll, 28ll, 44ll, 18ll, 28ll, 44ll, 18ll, 28ll, 44ll, 6ll, 28ll, 44ll });
 			Assert::AreEqual(2772ll, res);
 		}
 
