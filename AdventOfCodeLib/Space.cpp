@@ -1,4 +1,6 @@
 #include "Space.h"
+#include <map>
+#include "Calculating.h"
 
 void Space::ApplyGravity(vector<int> axes)
 {
@@ -11,17 +13,49 @@ void Space::ApplyGravity(vector<int> axes)
 	}
 }
 
-int Space::GetPeriod(int axis, int moon) 
+int Space::GetPeriod() 
 {
 	Time = 0;
-	int startPos = Moons[moon].Position[axis];
-	int startVel = Moons[moon].Velocity[axis];
-	AdvanceTime({ axis });
-	while (Moons[moon].Position[axis] != startPos || Moons[moon].Velocity[axis] != startVel)
+	
+	AdvanceTime({ 0, 1, 2 });
+	vector<int> velStateX = vector<int>();
+	vector<int> velStateY = vector<int>();
+	vector<int> velStateZ = vector<int>();
+	for (size_t i = 0; i < Moons.size(); i++)
 	{
-		AdvanceTime({ axis });
+		velStateX.push_back(Moons[i].Velocity[0]);
+		velStateY.push_back(Moons[i].Velocity[1]);
+		velStateZ.push_back(Moons[i].Velocity[2]);
 	}
-	return Time;
+	int xsteps = -1;
+	int ysteps = -1;
+	int zsteps = -1;
+		while (xsteps == -1 || ysteps == -1 || zsteps == -1 )
+		{
+			velStateX = vector<int>();
+			velStateY = vector<int>();
+			velStateZ = vector<int>();
+			AdvanceTime({0,1,2});
+			for (size_t i = 0; i < Moons.size(); i++)
+			{
+				velStateX.push_back(Moons[i].Velocity[0]);
+				velStateY.push_back(Moons[i].Velocity[1]);
+				velStateZ.push_back(Moons[i].Velocity[2]);
+			}
+			if (velStateX == vector<int>{0, 0, 0, 0}&& xsteps == -1)
+			{
+				xsteps = Time;
+			}
+			if (velStateY == vector<int>{0, 0, 0, 0}&& ysteps == -1)
+			{
+				ysteps = Time;
+			}
+			if (velStateZ == vector<int>{0, 0, 0, 0}&& zsteps == -1)
+			{
+				zsteps = Time;
+			}
+		}
+		return Calculating::calculateLeastCommonMultiple({xsteps, ysteps, zsteps});
 }
 
 void Space::AdvanceTime(vector<int> axes)

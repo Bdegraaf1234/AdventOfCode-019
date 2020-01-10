@@ -16,7 +16,7 @@ public:
 	long long Time = 0;
 	vector<Moon> Moons;
 	void ApplyGravity(vector<int> axes);
-	int GetPeriod(int axis, int moon);
+	int GetPeriod();
 	void AdvanceTime(vector<int> axes);
 	int GetTotalEnergy();
 };

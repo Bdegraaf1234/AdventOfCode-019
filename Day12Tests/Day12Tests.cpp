@@ -44,18 +44,8 @@ namespace Day12Tests
 		{
 			Space space = Space();
 			space.Moons = Parsing::ParseInputDay12("C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day12\\TestInput\\testInput.txt");
-			vector<Moon> startState = Parsing::ParseInputDay12("C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day12\\TestInput\\testInput.txt");
-			vector<int> axes = { 0, 1, 2 };
-			vector<long long> periods = vector<long long>();
-			for (size_t j = 0; j < 4; j++)
-			{
-				for (size_t i = 0; i < axes.size(); i++)
-				{
-					periods.push_back((long long)space.GetPeriod(i, j));
-				}
-			}
 
-			Assert::AreEqual(Calculating::calculateLeastCommonMultiple(periods), 2772ll);
+			Assert::AreEqual((long long)space.GetPeriod(), 2772ll);
 		}
 
 		TEST_METHOD(RunPart1)
@@ -67,24 +57,15 @@ namespace Day12Tests
 				space.AdvanceTime({ 0, 1, 2 });
 			}
 			int ans = space.GetTotalEnergy();
+			Assert::AreEqual(9127, ans);
 		}
 
 		TEST_METHOD(RunPart2)
 		{
 			Space space = Space();
 			space.Moons = Parsing::ParseInputDay12("C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day12\\Input\\input.txt");
-			space.AdvanceTime({ 0, 1, 2 });
-			vector<int> axes = { 0, 1, 2 };
-			vector<long long> periods = vector<long long>();
-			for (size_t j = 0; j < 4; j++)
-			{
-				for (size_t i = 0; i < axes.size(); i++)
-				{
-					periods.push_back((long long)space.GetPeriod(i, j));
-				}
-			}
 
-			Assert::AreEqual(Calculating::calculateLeastCommonMultiple(periods), 2772ll);
+			Assert::AreEqual((long long)space.GetPeriod(), 2772ll);
 		}
 	};
 }

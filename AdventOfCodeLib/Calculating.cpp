@@ -44,7 +44,7 @@ long long Calculating::calculateLeastCommonMultiple(vector<long long> input)
 		int index = std::distance(input.begin(), lowest);
 		input[index] += saveInput[index];
 	}
-	return input[0];
+	return input[0] * 2;
 }
 
 int Calculating::CalculateTotalFuelRequirementIncludingFuel(vector<int> weightVect) {
