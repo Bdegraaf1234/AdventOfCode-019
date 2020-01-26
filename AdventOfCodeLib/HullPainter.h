@@ -23,6 +23,5 @@ public:
 	bool Move(bool clockWise, bool outColor);
 	int Run(IntCodeProcessor processor, bool input);
 	void WriteOut(string path);
-	int Run(IntCodeProcessor processor);
 };
 

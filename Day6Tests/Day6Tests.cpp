@@ -13,13 +13,13 @@ namespace Day6Tests
 
 		TEST_METHOD(InitializeOrbitmap)
 		{
-			vector<string> inputList = Parsing::ParseInputDay6("../../Day6/TestInput/testinput.txt");
+			vector<string> inputList = Parsing::ParseInputDay6("../../../Day6/TestInput/testinput.txt");
 			OrbitMap testMap = OrbitMap(inputList);
 		}
 
 		TEST_METHOD(CountOrbits)
 		{
-			vector<string> inputList = Parsing::ParseInputDay6("../../Day6/TestInput/testinput.txt");
+			vector<string> inputList = Parsing::ParseInputDay6("../../../Day6/TestInput/testinput.txt");
 			OrbitMap testMap = OrbitMap(inputList);
 			int orbitCount = 0;
 			for (size_t i = 0; i < testMap.ObjectsInOrbit.size(); i++)
@@ -31,7 +31,7 @@ namespace Day6Tests
 
 		TEST_METHOD(Distances)
 		{
-			vector<string> inputList = Parsing::ParseInputDay6("../../Day6/TestInput/testinput.txt");
+			vector<string> inputList = Parsing::ParseInputDay6("../../../Day6/TestInput/testinput.txt");
 			OrbitMap testMap = OrbitMap(inputList);
 			for (size_t i = 9; i < testMap.ObjectsInOrbit.size(); i++)
 			{
@@ -41,13 +41,13 @@ namespace Day6Tests
 
 		TEST_METHOD(InitializeRealOrbitmap)
 		{
-			vector<string> inputList = Parsing::ParseInputDay6("../../Day6/Input/input.txt");
+			vector<string> inputList = Parsing::ParseInputDay6("../../../Day6/Input/input.txt");
 			OrbitMap testMap = OrbitMap(inputList);
 		}
 
 		TEST_METHOD(OrbitalCountRealOrbitmap)
 		{
-			vector<string> inputList = Parsing::ParseInputDay6("../../Day6/Input/input.txt");
+			vector<string> inputList = Parsing::ParseInputDay6("../../../Day6/Input/input.txt");
 			OrbitMap testMap = OrbitMap(inputList);
 			int orbitCount = 0;
 			for (size_t i = 0; i < testMap.ObjectsInOrbit.size(); i++)
@@ -59,7 +59,7 @@ namespace Day6Tests
 
 		TEST_METHOD(DistancesRealOrbitmap)
 		{
-			vector<string> inputList = Parsing::ParseInputDay6("../../Day6/Input/input.txt");
+			vector<string> inputList = Parsing::ParseInputDay6("../../../Day6/Input/input.txt");
 			OrbitMap testMap = OrbitMap(inputList);
 			testMap.CalculateDistanceToObjects(*find(testMap.ObjectsInOrbit.begin(), testMap.ObjectsInOrbit.end(), OrbitingObject("SAN")));
 			auto santa = *find(testMap.ObjectsInOrbit.begin(), testMap.ObjectsInOrbit.end(), OrbitingObject("YOU"));

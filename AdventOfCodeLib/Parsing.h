@@ -23,4 +23,5 @@ public:
 	static vector<long long> ParseIntCodeProgram(string path);
 	static vector<string> ParseInputDay6(string path);
 	static vector<Moon> ParseInputDay12(string path);
+	static vector<int> ParseGameLayout(string path);
 };

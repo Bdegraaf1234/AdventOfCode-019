@@ -16,7 +16,7 @@ void main(int argc, char* argv[])
 	else
 	{
 		IntCodeProcessor cpu = IntCodeProcessor();
-		vector<long> startMem = Parsing::ParseIntCodeProgram(argv[1]);
+		vector<long long> startMem = Parsing::ParseIntCodeProgram(argv[1]);
 		for (size_t i = 0; i < 100; i++)
 		{
 			for (size_t j = 0; j < 100; j++)

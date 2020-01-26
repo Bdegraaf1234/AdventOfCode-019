@@ -38,6 +38,7 @@ Instruction::Instruction(int opcode, int pointer, long long input)
 	}
 
 	//initialize the parameters
+
 	for (size_t i = 0; i < numParameters; i++)
 	{
 		Parameters.push_back(Parameter());
@@ -87,7 +88,7 @@ long long Instruction::Execute(vector<long long>& memory, int& pointer, int& rel
 		myfile << result;
 		myfile << ',';
 		myfile.close();
-		std::cout << result;
+		//std::cout << result;
 		pointer += Parameters.size() + 1;
 		return result;
 	}
@@ -139,6 +140,7 @@ long long Instruction::Execute(vector<long long>& memory, int& pointer, int& rel
 	}
 	pointer += Parameters.size() + 1;
 	return result;
+
 }
 
 int Instruction::CountNumbers(int num) {

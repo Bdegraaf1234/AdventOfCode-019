@@ -86,11 +86,12 @@ long long lcm(long long a, long long b)
 	return temp ? (a / temp * b) : 0;
 }
 
+///TODO method needs to be altered as the length of the vector is now hardcoded in
 long long Calculating::calculateLeastCommonMultipleNew(vector<long long> input)
 {
 	std::sort(input.begin(), input.end());
-	long long arr[] = { input[0], input[1], input[2] };
-	return std::accumulate(arr + 1, arr + 3, arr[0], lcm);
+
+	return std::accumulate(input.begin(), input.end(), input[0], lcm);
 }
 
 int Calculating::CalculateTotalFuelRequirementIncludingFuel(vector<int> weightVect) {

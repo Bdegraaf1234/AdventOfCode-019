@@ -240,3 +240,28 @@ vector<Moon> Parsing::ParseInputDay12(string path)
 	}
 	return moons;
 }
+
+
+
+vector<int> Parsing::ParseGameLayout(string path)
+{
+	std::vector<int> objectList;
+	string line;
+	ifstream myfile(path);
+
+	if (myfile.is_open())
+	{
+		while (getline(myfile, line))
+		{
+			strtk::parse(line, ",", objectList);
+		}
+		myfile.close();
+	}
+
+	else
+	{
+		cout << "Unable to open file";
+	}
+
+	return objectList;
+}

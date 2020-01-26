@@ -21,14 +21,14 @@ namespace IntCodeTests
 		{
 			std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day2\\Input\\input.txt";
 			IntCodeProcessor cpu = IntCodeProcessor(inFile);
-			Assert::AreEqual(157, (int)cpu.Memory.size());
+			Assert::AreEqual(4, (int)cpu.Memory[10]);
 		}
 
 		TEST_METHOD(ParseIntCodeDay5)
 		{
 			std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day5\\Input\\input.txt";
 			IntCodeProcessor cpu = IntCodeProcessor(inFile);
-			Assert::AreEqual(678, (int)cpu.Memory.size());
+			Assert::AreEqual(104, (int)cpu.Memory[10]);
 		}
 
 		TEST_METHOD(OpCode1Test)
@@ -362,6 +362,49 @@ namespace IntCodeTests
 
 			int ans = paintBot.Run(cpu, 1);
 			paintBot.WriteOut("C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day11\\Input\\out.txt");
+		}
+
+		TEST_METHOD(Day13Exec)
+		{
+			std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day13\\Input\\input.txt";
+
+			std::string path = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day13\\Input\\input_output.txt";
+			IntCodeProcessor cpu = IntCodeProcessor(inFile);
+			remove("C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day13\\Input\\input_output.txt");
+			int ans = cpu.Run(1);
+
+			std::vector<int> layOut = Parsing::ParseGameLayout(path);
+			int blockCount = 0;
+			for (size_t i = 2; i < layOut.size(); i += 3)
+			{
+				if (layOut[i] == 2)
+				{
+					blockCount++;
+				}
+			}
+			Assert::AreEqual(blockCount, 298);
+		}
+
+		TEST_METHOD(Day13Part2Exec)
+		{
+			std::string inFile = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day13\\Input\\input.txt";
+
+			std::string path = "C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day13\\Input\\input_output.txt";
+			IntCodeProcessor cpu = IntCodeProcessor(inFile);
+			cpu.Memory[0] = 2;
+			remove("C:\\Users\\Gebruiker\\source\\repos\\AdventOfCode\\Day13\\Input\\input_output.txt");
+			int ans = cpu.Run(1);
+
+			std::vector<int> layOut = Parsing::ParseGameLayout(path);
+			int blockCount = 0;
+			for (size_t i = 2; i < layOut.size(); i += 3)
+			{
+				if (layOut[i] == 2)
+				{
+					blockCount++;
+				}
+			}
+			Assert::AreEqual(blockCount, 298);
 		}
 	};
 }
