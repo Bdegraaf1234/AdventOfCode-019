@@ -20,7 +20,7 @@ public:
 	void Display();
 	void DisplayScore(int score);
 	void Alter(Tile newTile);
-
+	int CountRemainingBlocks();
 	char Grid[200][200] = { {} };
 };
 

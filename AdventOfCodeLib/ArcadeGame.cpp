@@ -7,7 +7,17 @@ void ArcadeGame::Init(IntCodeProcessor cpu)
 	long long prevout = 0;
 	int outcounter = 0;
 	int tileInstructions[3];
-
+	int prevxball = 0;
+	int prevyball = 0;
+	int xball = 0;
+	int yball = 0;
+	int xpaddle = 0;
+	int ypaddle = 0;
+	int xdir = 1;
+	int ydir = -1;
+	int ydist = 3;
+	int move = 0;
+	int exit = 0;
 	while (1)
 	{
 		if (outcounter > 2)
@@ -16,6 +26,28 @@ void ArcadeGame::Init(IntCodeProcessor cpu)
 			if (tileInstructions[0] == -1 && tileInstructions[1] == 0)
 			{
 				DisplayScore(tileInstructions[2]);
+				int blockCounter = CountRemainingBlocks();
+				if (blockCounter == 0)
+				{
+					Display();
+					exit = 1;
+				}
+				cout << blockCounter;
+			}
+			if (tileInstructions[2] == 4)
+			{
+				prevxball = xball;
+				prevyball = yball;
+				xball = tileInstructions[0];
+				yball = tileInstructions[1];
+				xdir = xball - prevxball;
+				ydir = prevyball - yball;
+				ydist = 23 - yball;
+			}
+			if (tileInstructions[2] == 3)
+			{
+				xpaddle = tileInstructions[0];
+				ypaddle = tileInstructions[1];
 			}
 			Tile newTile = Tile(tileInstructions);
 			Alter(newTile);
@@ -24,11 +56,26 @@ void ArcadeGame::Init(IntCodeProcessor cpu)
 		bool write = instruction.Identifier == 4; 
 		if (instruction.Identifier == 3)
 		{
-			Display();
-			cout << "move joystick:";
-			char choice = ' ';
-
-			while (isspace(choice))
+			//Display();
+			/*cout << "move joystick:";
+			char choice = ' ';*/
+			if (1)//ydir == -1)
+			{
+				if (xball + (ydist * xdir) == xpaddle)
+				{
+					move = 0;
+				}
+				else if (xball + (ydist * xdir) > xpaddle)
+				{
+					move = 1;
+				}
+				else
+				{
+					move = -1;
+				}
+			}
+			instruction.Input = move;
+			/*while (isspace(choice))
 			{
 				choice = getchar();
 			}
@@ -43,8 +90,8 @@ void ArcadeGame::Init(IntCodeProcessor cpu)
 			}
 			else
 			{
-				instruction.Input = 0;
-			}
+				
+			}*/
 		}
 		prevout = instruction.Execute(cpu.Memory, cpu.Pointer, cpu.RelativeBase, cpu.OutPath);
 		if (write)
@@ -80,4 +127,19 @@ void ArcadeGame::DisplayScore(int score)
 void ArcadeGame::Alter(Tile newTile)
 {
 	Grid[newTile.Y][newTile.X] = newTile.Id;
+}
+
+int ArcadeGame::CountRemainingBlocks() {
+	int toreturn = 0;
+	for (size_t y = 0; y < 26; y++)
+	{
+		for (size_t x = 0; x < 50; x++)
+		{
+			if (Grid[y][x] == 'D')
+			{
+				toreturn++;
+			}
+		}
+	}
+	return toreturn;
 }

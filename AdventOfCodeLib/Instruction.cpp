@@ -38,7 +38,6 @@ Instruction::Instruction(int opcode, int pointer, long long input)
 	}
 
 	//initialize the parameters
-
 	for (size_t i = 0; i < numParameters; i++)
 	{
 		Parameters.push_back(Parameter());

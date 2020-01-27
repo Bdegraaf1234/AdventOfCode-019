@@ -38,7 +38,7 @@ public:
 		}
 		else if (tileInstructions[2] == 4)
 		{
-			Id = 'o';
+			Id = 'D';
 		}
 	}
 };
